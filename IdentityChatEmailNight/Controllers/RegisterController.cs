@@ -31,7 +31,7 @@ namespace IdentityChatEmailNight.Controllers
                 UserName = model.Username
             };
 
-            var result = await _userManager.CreateAsync(appUser, model.Password); //Password u hash lemek için buraya yazıyoruz.
+            var result = await _userManager.CreateAsync(appUser, model.Password); //Password u hash lemek için dışarıdan gönderiyoruz.
 
             if (result.Succeeded)
             {
