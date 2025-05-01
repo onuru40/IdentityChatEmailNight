@@ -7,7 +7,7 @@ namespace IdentityChatEmailNight.Controllers
 {
     public class RegisterController : Controller
     {
-        // Dependency Injection yapısı
+        // Dependency Injection yapısı. Bu yapı ile New leme yapmadan bağımlılığı azaltıyoruz.
         private readonly UserManager<AppUser> _userManager;
         public RegisterController(UserManager<AppUser> userManager)
         {

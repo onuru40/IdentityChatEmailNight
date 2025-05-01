@@ -1,4 +1,13 @@
+using IdentityChatEmailNight.Context;
+using IdentityChatEmailNight.Entity;
+using IdentityChatEmailNight.Models;
+using Microsoft.AspNetCore.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Dependency Injection yapýsý için Registration iþlemi yapýyoruz.
+builder.Services.AddDbContext<EmailContext>();
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<EmailContext>().AddErrorDescriber<CustomIdentityValidator>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
