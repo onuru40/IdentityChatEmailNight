@@ -1,5 +1,6 @@
 ﻿using IdentityChatEmailNight.Context;
 using IdentityChatEmailNight.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,13 +10,23 @@ namespace IdentityChatEmailNight.Controllers
     {
         private readonly EmailContext _context;
 
-        public MessageController(EmailContext context)
+        private readonly UserManager<AppUser> _userManager;
+
+        public MessageController(EmailContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
-        public IActionResult Inbox()
+        [Authorize]
+        public async Task<IActionResult> Inbox()
         {
-            return View();
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            ViewBag.email = values.Email;
+            ViewBag.v1 = values.Name + " " + values.Surname;
+
+            var values2 = _context.Messages.Where(x => x.ReceiverEmail == values.Email).ToList();
+
+            return View(values2);
         }
 
         public IActionResult SendBox()

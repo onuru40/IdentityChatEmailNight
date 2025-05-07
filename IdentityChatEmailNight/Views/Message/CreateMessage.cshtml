@@ -1,0 +1,22 @@
+﻿@model IdentityChatEmailNight.Entity.Message
+@{
+    Layout = null;
+}
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<form method="post">
+  <label>Gönderici Email</label>
+  <input type="text" placeholder="Adınız" asp-for="SenderMail" class="form-control">
+  <br/>
+    <label>Alıcı Email</label>
+    <input type="text" placeholder="Adınız" asp-for="ReceiverEmail" class="form-control">
+    <br />
+    <label>Konu</label>
+    <input type="text" placeholder="Adınız" asp-for="Subject" class="form-control">
+    <br />
+    <label>Mesaj Detayları</label>
+    <input type="text" placeholder="Adınız" asp-for="MessageDetail" class="form-control">
+    <br />
+    <button class="btn btn-primary">Mesajı Gönder</button>
+</form>
