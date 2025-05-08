@@ -27,7 +27,7 @@ namespace IdentityChatEmailNight.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Inbox", "Message");
+                return RedirectToAction("ProfileDetail", "Profile");
             }
             return View();
         }

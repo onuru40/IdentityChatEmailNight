@@ -3,6 +3,7 @@ using IdentityChatEmailNight.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace IdentityChatEmailNight.Controllers
 {
@@ -29,9 +30,14 @@ namespace IdentityChatEmailNight.Controllers
             return View(values2);
         }
 
-        public IActionResult SendBox()
+        public async Task<IActionResult> Sendbox()
         {
-            return View();
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            string emailValue = values.Email;
+
+            var sendMessageList = _context.Messages.Where(x => x.SenderMail == emailValue).ToList();
+
+            return View(sendMessageList);
         }
 
         [HttpGet]
@@ -41,8 +47,12 @@ namespace IdentityChatEmailNight.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateMessage(Message message)
+        public async Task<IActionResult> CreateMessage(Message message)
         {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            string senderEmail = values.Email;
+
+            message.SenderMail = senderEmail;
             message.IsRead = false;
             message.SendDate = DateTime.Now;
             _context.Messages.Add(message);
